@@ -11,7 +11,7 @@ namespace LennyIdentity.Identity
 {
     public static class IdentityExtensions
     {
-        public static IApplicationBuilder UseIdentity(this IApplicationBuilder builder, string returnUrl = "/Account/Login")
+        public static IApplicationBuilder UseIdentity(this IApplicationBuilder builder, string returnUrl = "/Account/Login", int expireMin = 30)
         {
             return builder.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -20,6 +20,7 @@ namespace LennyIdentity.Identity
                 LoginPath = new PathString(returnUrl),
                 AuthenticationScheme = IdentityManager.AuthenticationScheme,
                 CookieName = "IdentityCookie",
+                ExpireTimeSpan = new TimeSpan(0, expireMin, 0)
             });
         }
 
